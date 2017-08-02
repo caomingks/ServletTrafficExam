@@ -42,7 +42,7 @@ public class PreQuestion extends HttpServlet
 			index=0;
 			Topics topicChecked=mapTopics.get(index+1);
 			topicChecked.setChecked(str);
-			System.out.println("di "+(index+1)+ "tiao"+topicChecked);
+			System.out.println("第 "+(index+1)+ "条"+topicChecked);
 			
 			String message="{\"message\":\"the first!\"}";
 			out.println(message);

@@ -34,10 +34,12 @@ public class Analysis extends HttpServlet
 		PrintWriter out = response.getWriter();
 		out.println(request.getAttribute("message").toString());
 
+		//获取上传文件的路径，使用IO流读取并解析
 		String filePath = request.getAttribute("filePath").toString();
 		Reader reader = null;
 		BufferedReader br = null;
 		
+		//连接数据库
 		Connection conn = DbHelper.getInstance().getConnection();
 		
 		ExerciseDao ed=new ExerciseDaoImpl(conn);
@@ -49,11 +51,14 @@ public class Analysis extends HttpServlet
 
 			String line = null;
 
+			//要解析的题目数量
 			for (int i = 1; i <= 60; i++)
 			{
+				//有多少题，NEW多少对象
 				Exercise exe = new Exercise();
 				exe.setNo(i);
 
+				//解析每一题
 				while ((line = br.readLine()) != null)
 				{
 					if (!"".equals(line))
@@ -95,6 +100,7 @@ public class Analysis extends HttpServlet
 
 				System.out.println(exe);
 				
+				//逐条保存到数据库
 				ed.save(exe);
 			}
 		}

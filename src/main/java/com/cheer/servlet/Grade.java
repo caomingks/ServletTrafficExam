@@ -31,6 +31,7 @@ public class Grade extends HttpServlet
 		
 		Map<Integer,Topics> mapTopics=(Map<Integer,Topics>)session.getAttribute("topics");	
 		
+		//循环遍历mapTopics,比较答案，答对则计数
 		Set<Integer> set=mapTopics.keySet();
 		int count=0;
 		for(Integer key : mapTopics.keySet())

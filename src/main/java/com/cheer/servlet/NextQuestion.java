@@ -31,13 +31,16 @@ public class NextQuestion extends HttpServlet
 		PrintWriter out=response.getWriter();
 		HttpSession session=request.getSession();
 		
-		
+		//获取上一条答案
 		String str=request.getParameter("select");
 		
+		//当前请求题的index
 		Integer index=(Integer)session.getAttribute("index")+1;
 		Gson gson=new Gson();
 		Map<Integer,Topics> mapTopics=(Map<Integer,Topics>)session.getAttribute("topics");	
 		
+		
+		//边界处理，当达到最后一条时，再次请求给出提示
 		if(index>mapTopics.size())
 		{
 			index=mapTopics.size()+1;
@@ -47,13 +50,18 @@ public class NextQuestion extends HttpServlet
 			
 			String message="{\"message\":\"the last!\"}";
 			out.println(message);
-		}else
+		}
+		
+		else
 		{
 			
+			//获取已经有答案的对象试题
 			Topics topicChecked=mapTopics.get(index-1);
+			//将答案存入
 			topicChecked.setChecked(str);
-			System.out.println("di "+(index-1)+ "tiao "+topicChecked);
+			System.out.println("第 "+(index-1)+ "条 "+topicChecked);
 			
+			//获取请求下标对应的题目
 			Topics topic=mapTopics.get(index);
 			String exJson=gson.toJson(topic);
 			String exJsonChecked=gson.toJson(topicChecked);

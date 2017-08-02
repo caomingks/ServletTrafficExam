@@ -11,8 +11,9 @@
 
 <script type="text/javascript">
 	$(function() {
-
-		
+		//当页面加载时
+		//当页面第一次加载的时候，请求当前题，并解析显示
+		//相当于windows.onload()
 		var url = "currentQuestion";
 		$.getJSON(url, function(data) {
 			var no = data.no;
@@ -32,13 +33,15 @@
 
 		
 		
-		
+		//局部刷新，上一题下一体
 		$("a").click(
 				function() {
 					
 					
 					
 					var url = this.href;
+					
+					//获取选中的单选框的值
 					var value=$('input:radio[name="select"]:checked').val();
 					
 					var args = {
@@ -49,11 +52,9 @@
 					
 					$.getJSON(url, args, function(data) {
 						
+						//对请求返回的数据解析
 						var message=data.message;
-						
-	
-						
-						
+
 						if(undefined==message)
 						{
 							var no = data.no;
@@ -70,24 +71,39 @@
 							.append("<input id='B' type='radio'  name='select' value='B'>"+selectB+"<br>")
 							.append("<input id='C' type='radio'  name='select' value='C'>"+selectC+"<br>")
 							.append("<input id='D' type='radio'  name='select' value='D'>"+selectD+"<br>");
+	
+							
+							//如果下一题或者上一题有答案了，则将其选中
+							if(checked!=null)
+							{
+								var selectValue = '#'+checked;
+								$(selectValue).attr("checked", true);
+							}
+			
+
+						
 						}
 						else
 						{
+							
+							//最后一题，提示信息
 							alert(message);
 						}
-						
-						
-	
-						
 
 					});
 
+					
+					//取消<a>标签默认行为（跳转到请求的URL）
 					return false;
 				});
 		
 		
+		
+		
 	})
 </script>
+
+
 
 </head>
 <body>

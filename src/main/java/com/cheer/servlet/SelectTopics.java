@@ -28,6 +28,7 @@ public class SelectTopics extends HttpServlet
 
 	}
 
+	//从数据库随机选择要考的题目，取出，并放入Session
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 
@@ -37,6 +38,7 @@ public class SelectTopics extends HttpServlet
 		Connection conn = DbHelper.getInstance().getConnection();
 		ExerciseDao ed=new ExerciseDaoImpl(conn);
 		
+		//创建选择的题目要存放的容器，map.
 		Map<Integer,Topics> mapTopics = new LinkedHashMap<>();
 		//Gson gson=new Gson();
 
@@ -47,6 +49,7 @@ public class SelectTopics extends HttpServlet
 		
 		int randInt = 0;
 
+		//随机从60挑中生成20个不重复的id,根据id从数据库取出数据，赋值给Topics，存入map,存入session
 		for (int i = 1; i <=20; i++)
 		{
 			Topics topics=new Topics();
@@ -74,7 +77,7 @@ public class SelectTopics extends HttpServlet
 		System.out.println(mapTopics.size());
 		request.getSession().setAttribute("topics", mapTopics);
 		
-		
+		//随机生成试题后，从定向考试页面
 		response.sendRedirect("topics.jsp");
 		
 	}

@@ -31,24 +31,23 @@ public class CurrentQuestion extends HttpServlet
 		PrintWriter out=response.getWriter();
 		
 		HttpSession session=request.getSession();
-		//INDEX
-//		Integer index=(Integer)session.getAttribute("index");
-//		System.out.println("index"+index);
-//		Gson gson=new Gson();
-//		if(null==index)
-//		{
-//			index=1;
-//		}
+		
+		//创建下标，初始化为1，存入session，用于上一题，下一题，下标计数
 		Integer index=1;
 		Gson gson=new Gson();
+		
+		//从session中取出已选择的试题
 		Map<Integer,Topics> mapTopics=(Map<Integer,Topics>)session.getAttribute("topics");
 		
+		//通过Index取出对应试题
 		Topics topic=mapTopics.get(index);
 		System.out.println(topic);
 		
-		
+		//取出的试题转为Json格式字符串
 		String exJson=gson.toJson(topic);
+		//将当前使用的index存入session
 		session.setAttribute("index", index);
+		//回应Json格式字符串，交给Ajax回调函数function(data)处理
 		out.println(exJson);
 		
 	}

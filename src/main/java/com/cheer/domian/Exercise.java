@@ -8,6 +8,8 @@ public class Exercise
 	private String selectB;
 	private String selectC;
 	private String selectD;
+	
+	//标准答案
 	private String answer;
 	
 	

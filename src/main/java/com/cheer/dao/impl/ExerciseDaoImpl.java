@@ -27,6 +27,7 @@ public class ExerciseDaoImpl implements ExerciseDao
 	}
 
 
+	//将解析的试题保存到数据库
 	public void save(Exercise exe)
 	{
 		PreparedStatement stat = null;
@@ -55,7 +56,7 @@ public class ExerciseDaoImpl implements ExerciseDao
 		}
 	}
 	
-	
+	//apache DBUtils 通过id查找一行记录，即拿到一个对象
 	public Exercise find(int id)
 	{
 		ResultSetHandler<Exercise> handler = new BeanHandler<Exercise>(Exercise.class);

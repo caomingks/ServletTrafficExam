@@ -6,6 +6,7 @@ public class Topics
 	
 	private Exercise exercise;
 	
+	//考生选中的答案
 	private String checked;
 
 	public Integer getNo()
