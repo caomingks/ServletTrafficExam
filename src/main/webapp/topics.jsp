@@ -108,15 +108,18 @@
 </head>
 <body>
 	
-	<div id="details">
+	<div id="details" align="center">
 	</div>
 	
-	
+	<div align="center">
 	<a  href="preQuestion">pre</a>
 	<a  href="nextQuestion">next</a>
+	</div>
+	
+	<div align="center">
 	<form action="grade">
 	<input type="submit" value="jiaojuan"/>
 	</form>
-	
+	</div>
 </body>
 </html>

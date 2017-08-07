@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cheer.domian.Topics;
+import com.google.gson.Gson;
 
-public class Grade extends HttpServlet
+public class ErrorQuestion extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
-	public Grade()
+	public ErrorQuestion()
 	{
-		super();
 
 	}
 
@@ -31,37 +30,26 @@ public class Grade extends HttpServlet
 		PrintWriter out=response.getWriter();
 		HttpSession session=request.getSession();
 		
+		List<Integer> errors=(List<Integer>)session.getAttribute("error");
 		Map<Integer,Topics> mapTopics=(Map<Integer,Topics>)session.getAttribute("topics");	
+		List<Topics> errorsTopics=new LinkedList<>();
 		
-		//循环遍历mapTopics,比较答案，答对则计数
-		Set<Integer> set=mapTopics.keySet();
-		int count=0;
-		List<Integer> error=new LinkedList<>();
-		for(Integer key : mapTopics.keySet())
+		for(int i=0;i<errors.size();i++)
 		{
-			
-			String answer=mapTopics.get(key).getExercise().getAnswer();
-			String checked=mapTopics.get(key).getChecked();
-			if(answer.equals(checked))
-			{
-				count++;
-			}
-			else
-			{
-				error.add(key);
-			}
+			Topics error=mapTopics.get(errors.get(i));
+			errorsTopics.add(error);
 		}
 		
-		int grade=count*5;
+		Gson gson=new Gson();
+		String listGson=gson.toJson(errorsTopics);
+		System.out.println(listGson);
+		out.println(listGson);
 		
-		session.setAttribute("error", error);
-		request.setAttribute("grade", grade);
-		
-		request.getRequestDispatcher("showGrade.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+
 		doGet(request, response);
 	}
 

@@ -64,4 +64,24 @@
     <servlet-name>grade</servlet-name>
     <url-pattern>/grade</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>errorQuestion</display-name>
+    <servlet-name>errorQuestion</servlet-name>
+    <servlet-class>com.cheer.servlet.ErrorQuestion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>errorQuestion</servlet-name>
+    <url-pattern>/errorQuestion</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>endExam</display-name>
+    <servlet-name>endExam</servlet-name>
+    <servlet-class>com.cheer.servlet.EndExam</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>endExam</servlet-name>
+    <url-pattern>/endExam</url-pattern>
+  </servlet-mapping>
 </web-app>
